@@ -1,6 +1,5 @@
 package org.app.demo3;
 
-import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.app.demo3.controllers.AuthController;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(name = "AuthServlet", urlPatterns = {"/auth/*"})
 public class AuthServlet extends HttpServlet {
@@ -33,7 +31,6 @@ public class AuthServlet extends HttpServlet {
             case "/register":
                 AuthController.showFormRegister(req, resp);
                 break;
-
         }
     }
 

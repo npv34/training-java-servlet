@@ -4,6 +4,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.app.demo3.services.UserService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,8 +15,7 @@ public class AuthController {
         if ("true".equals(error)) {
             req.setAttribute("message-error", "Account not exist!");
         }
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/login.jsp");
-        System.out.println(requestDispatcher);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/auth/login.jsp");
         requestDispatcher.forward(req, res);
     }
 
@@ -26,12 +26,9 @@ public class AuthController {
     }
 
     public static void login(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String email = req.getParameter("email");
-        String pass = req.getParameter("pass");
-        if (email.equals("admin") && pass.equals("1234")) {
-            res.sendRedirect("/home");
+        if (UserService.checkAccount(req, res)) {
+            res.sendRedirect("/users");
         }else {
-
             res.sendRedirect("/auth/login?error=true");
         }
     }
