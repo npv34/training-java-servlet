@@ -27,9 +27,14 @@ public class UserServlet extends HttpServlet {
         }
         switch (uri) {
             case "/create":
+                UserController.renderPageCreateUser(req, resp);
                 break;
             case "/delete":
                 UserController.deleteUser(req, resp);
+                break;
+
+            case "/update":
+                UserController.renderPageUpdateUser(req, resp);
                 break;
             default:
                 UserController.renderPageListUser(req, resp);
@@ -38,6 +43,17 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String uri = req.getPathInfo();
+        if (uri == null) {
+            uri = "";
+        }
+        if (uri.equals("/create")) {
+            UserController.createUser(req, resp);
+        } else if (uri.equals("/update")) {
+            UserController.updateUser(req, resp);
+        } else {
+            resp.sendRedirect("/users");
+        }
+
     }
 }

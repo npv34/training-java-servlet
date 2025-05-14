@@ -14,32 +14,37 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 </head>
 <body>
-<h1>User manager</h1>
-<c:set var="users" value='${requestScope["users"]}' />
-<c:set var="index" value='1' />
-<table class="table table-striped table-hover">
-    <tr>
-        <td>STT</td>
-        <td>Name</td>
-        <td>Email</td>
-        <td>Phone</td>
-        <td>Address</td>
-        <td></td>
-    </tr>
-    <c:forEach items="${users}" var="user">
+<div class="container">
+    <h1>User manager</h1>
+    <a href="/users/create" class="btn btn-success">Create user</a>
+    <c:set var="users" value='${requestScope["users"]}' />
+    <c:set var="index" value='1' />
+    <table class="table table-striped table-hover">
         <tr>
-            <td><c:out value="${index}"/></td>
-            <td><c:out value="${user.getName()}"/></td>
-            <td><c:out value="${user.getEmail()}"/></td>
-            <td><c:out value="${user.getPhone()}"/></td>
-            <td><c:out value="${user.getAddress()}"/></td>
-            <td>
-                <a onclick="return confirm('Are you sure?')" href="/users/delete?id=<c:out value="${user.getId()}"/>" class="btn btn-danger">Delete</a>
-            </td>
+            <td>STT</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Phone</td>
+            <td>Address</td>
+            <td></td>
         </tr>
-        <c:set var="index" value='${index + 1}' />
-    </c:forEach>
-</table>
+        <c:forEach items="${users}" var="user">
+            <tr>
+                <td><c:out value="${index}"/></td>
+                <td><c:out value="${user.getName()}"/></td>
+                <td><c:out value="${user.getEmail()}"/></td>
+                <td><c:out value="${user.getPhone()}"/></td>
+                <td><c:out value="${user.getAddress()}"/></td>
+                <td>
+                    <a onclick="return confirm('Are you sure?')" href="/users/delete?id=<c:out value="${user.getId()}"/>" class="btn btn-danger">Delete</a>
+                    <a  href="/users/update?id=<c:out value="${user.getId()}"/>" class="btn btn-primary">Update</a>
+                </td>
+            </tr>
+            <c:set var="index" value='${index + 1}' />
+        </c:forEach>
+    </table>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
 </body>

@@ -36,4 +36,37 @@ public class UserService {
         int id = Integer.parseInt(request.getParameter("id"));
         UserModel.removeUser(id);
     }
+
+    public static void  storeUser(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        User u = new User(name, email, phone, address);
+        UserModel.save(u);
+    }
+
+    public static  User getUserById(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        ResultSet resultSet = UserModel.findById(id);
+        User user = null;
+        if (resultSet.next()) {
+            String name = resultSet.getString("name");
+            String email = resultSet.getString("email");
+            String phone = resultSet.getString("phone");
+            String address = resultSet.getString("address");
+            user = new User(id, name, email, phone, address);
+        }
+        return user;
+    }
+
+    public static void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        User u = new User(id, name, email, phone, address);
+        UserModel.update(u);
+    }
 }
